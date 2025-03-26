@@ -15,6 +15,24 @@ public class Evento {
     private String descrizione;
     private TipoEvento tipoEvento;
     private int numeroMassimoPartecipanti;
+    private Location location;
+    private Partecipazione partecipazione;
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Partecipazione getPartecipazione() {
+        return partecipazione;
+    }
+
+    public void setPartecipazione(Partecipazione partecipazione) {
+        this.partecipazione = partecipazione;
+    }
 
     public int getId() {
         return id;
