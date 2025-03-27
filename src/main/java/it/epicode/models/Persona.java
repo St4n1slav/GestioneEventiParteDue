@@ -1,9 +1,9 @@
 package it.epicode.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -14,8 +14,10 @@ public class Persona {
     private String cognome;
     private String email;
     private LocalDate dataDiNascita;
+    @Enumerated(EnumType.STRING)
     private Sesso sesso;
-    private String ListaPartecipazioni;
+    @OneToMany(mappedBy = "persona")
+    private List<Partecipazione> partecipazioni;
 
     public int getId() {
         return id;
@@ -65,11 +67,11 @@ public class Persona {
         this.sesso = sesso;
     }
 
-    public String getListaPartecipazioni() {
-        return ListaPartecipazioni;
+    public List<Partecipazione> getPartecipazioni() {
+        return partecipazioni;
     }
 
-    public void setListaPartecipazioni(String listaPartecipazioni) {
-        ListaPartecipazioni = listaPartecipazioni;
+    public void setPartecipazioni(List<Partecipazione> partecipazioni) {
+        this.partecipazioni = partecipazioni;
     }
 }

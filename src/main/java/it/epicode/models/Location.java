@@ -3,6 +3,9 @@ package it.epicode.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
 public class Location {
@@ -10,6 +13,16 @@ public class Location {
     private int id;
     private String name;
     private String citta;
+    @OneToMany(mappedBy = "location")
+    private List<Evento> eventi;
+
+    public List<Evento> getEventi() {
+        return eventi;
+    }
+
+    public void setEventi(List<Evento> eventi) {
+        this.eventi = eventi;
+    }
 
     public int getId() {
         return id;

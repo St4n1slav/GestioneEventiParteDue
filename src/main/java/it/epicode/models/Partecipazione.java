@@ -1,15 +1,17 @@
 package it.epicode.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Partecipazione {
     @Id
     private int id;
+    @ManyToOne
     private Persona persona;
+    @ManyToOne
     private Evento evento;
+    @Enumerated(EnumType.STRING)
     private StatoPartecipazione statoPartecipazione;
 
     public int getId() {

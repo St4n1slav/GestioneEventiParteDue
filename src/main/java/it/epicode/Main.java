@@ -16,6 +16,15 @@ import java.time.LocalDate;
 public class Main {
     public static void main(String[] args) {
 
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestioneeventi");
+        EntityManager em = emf.createEntityManager();
+        LocationDAO locationDAO = new LocationDAO(em);
+
+        EventoDAO eventoDAO = new EventoDAO(em);
+        PersonaDAO personaDAO = new PersonaDAO(em);
+        PartecipazioneDAO partecipazioneDAO = new PartecipazioneDAO(em);
+
+
         Persona persona = new Persona();
         persona.setId(1);
         persona.setNome("Luca");
@@ -30,7 +39,6 @@ public class Main {
         location.setCitta("Roma");
 
         Evento evento = new Evento();
-        evento.setId(1);
         evento.setTitolo("Evento di prova");
         evento.setDataEvento(LocalDate.now());
         evento.setDescrizione("Descrizione di prova");
@@ -44,15 +52,11 @@ public class Main {
         partecipazione.setPersona(persona);
         partecipazione.setStatoPartecipazione(StatoPartecipazione.CONFERMATO);
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("gestioneeventi");
-        EntityManager em = emf.createEntityManager();
-        LocationDAO locationDAO = new LocationDAO(em);
-        locationDAO.save(location);
-        EventoDAO eventoDAO = new EventoDAO(em);
-        eventoDAO.save(evento);
-        PersonaDAO personaDAO = new PersonaDAO(em);
-        personaDAO.save(persona);
-        PartecipazioneDAO partecipazioneDAO = new PartecipazioneDAO(em);
-        partecipazioneDAO.save(partecipazione);
+        em.getTransaction().begin();
+        em.persist(persona);
+        em.persist(location);
+        em.persist(evento);
+        em.persist(partecipazione);
+        em.getTransaction().commit();
     }
 }

@@ -3,6 +3,7 @@ package it.epicode.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "eventi")
@@ -13,10 +14,14 @@ public class Evento {
     private String titolo;
     private LocalDate dataEvento;
     private String descrizione;
+    @Enumerated(EnumType.STRING)
     private TipoEvento tipoEvento;
     private int numeroMassimoPartecipanti;
+    @ManyToOne
+    @JoinColumn(name = "location_id")
     private Location location;
-    private Partecipazione partecipazione;
+    @OneToMany(mappedBy = "evento")
+    private List<Partecipazione> partecipazioni;
 
     public Location getLocation() {
         return location;
@@ -26,12 +31,12 @@ public class Evento {
         this.location = location;
     }
 
-    public Partecipazione getPartecipazione() {
-        return partecipazione;
+    public List<Partecipazione> getPartecipazioni() {
+        return partecipazioni;
     }
 
-    public void setPartecipazione(Partecipazione partecipazione) {
-        this.partecipazione = partecipazione;
+    public void setPartecipazioni(List<Partecipazione> partecipazioni) {
+        this.partecipazioni = partecipazioni;
     }
 
     public int getId() {
